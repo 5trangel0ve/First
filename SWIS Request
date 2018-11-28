@@ -1,0 +1,46 @@
+import requests
+from orionsdk import SwisClient
+
+# Creat Variables
+npm_server = 'win-netmon-1'
+username = 'username'
+password = 'password'
+#Bypass SSL Warnings
+verify = False
+if not verify:
+    from requests.packages.urllib3.exceptions import InsecureRequestWarning
+    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+
+swis = SwisClient(npm_server, username, password)
+
+print("Query Test:")
+results = swis.query("SELECT TOP 3 NodeID, DisplayName FROM Orion.Nodes")
+
+for row in results['results']:
+    print("{NodeID:<5}: {DisplayName}".format(**row))
+
+#=================================================================================
+#UDT Rougue EndpointID SCript
+#=================================================================================
+print("Query Test UDT :")
+results = swis.query("SELECT TOP 10 EndpointID, DisplayName FROM Orion.UDT.RogueEndpoints")
+
+for row in results['results']:
+    print("{EndpointID:<5}: {DisplayName}".format(**row))
+	
+	
+	
+	
+	swis.read('swis://orion/Orion/Orion.Nodes/NodeID=7500/CustomProperties')
+	
+	
+		swis.read('swis://orion/Orion/Orion.UDT.PortToEndpointCurrent/EndpointID=345')
+
+
+	Orion.UDT.RogueEndpoints
+	Orion.UDT.RogueEndpoints
+	
+	
+	SELECT FirstSeen, PortID, EndpointID, VlanID, ConnectionType, ID
+FROM Orion.UDT.PortToEndpointCurrent
