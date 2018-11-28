@@ -1,0 +1,20 @@
+UDT_AllEndPoints.ConnectedTo,
+UDT_AllEndPoints.PortNumber,
+UDT_AllEndPoints.MACVendor,
+UDT_AllEndPoints.ConnectionType,
+UDT_AllEndPoints.IPAddress,
+UDT_AllEndPoints.PortName,
+Nodes.Caption,
+Nodes.Zones,
+UDT_MACAddressInfo.MACAddress,
+UDT_MACAddressInfo.IsCurrent,
+UDT_MACAddressInfo.LastUpdate
+ 
+FROM
+UDT_AllEndPoints
+FULL OUTER JOIN Nodes ON UDT_AllEndPoints.ConnectedTo = Nodes.Caption
+FULL OUTER JOIN UDT_MACAddressInfo ON UDT_AllEndPoints.MACAddress = UDT_MACAddressInfo.MACAddress
+ 
+WHERE
+UDT_AllEndPoints.ConnectionType = '1' and Nodes.Zones = 'EMS-ESP' and UDT_MACAddressInfo.IsCurrent = '1' and UDT_MACAddressInfo.LastUpdate  >= DATEADD(day,-7, GETDATE())
+ 
