@@ -1,0 +1,9 @@
+#SWQL Query in case you are using SWIS
+
+Select p2e.endpointid, e.MACAddress, ipc.IPAddress, dns.DNSName, P.Name, N.Caption, ConnectionType
+  From Orion.UDT.PortToEndpointCurrent p2e
+  left outer join Orion.UDT.Endpoint e on e.EndpointID= p2e.endpointid
+  left outer join Orion.UDT.IPAddressCurrent ipc on p2e.EndpointId = ipc.EndpointID
+  left outer join Orion.UDT.DNSNameCurrent dns on ipc.ipaddressID = dns.IPAddressID
+  left outer join Orion.UDT.port P on P.PortID = p2e.PortID 
+  left outer join Orion.Nodes n on p.Nodeid = n.Nodeid
